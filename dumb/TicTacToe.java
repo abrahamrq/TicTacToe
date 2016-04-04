@@ -49,7 +49,7 @@ public class TicTacToe extends GameSearch {
         }
         count = 10 - count;
         // prefer the center square:
-        float base = 1.0f;
+        float base = 0.0f;
         if (pos.board[4] == TicTacToePosition.HUMAN &&
             player) {
             base += 0.4f;
