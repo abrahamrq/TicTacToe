@@ -120,7 +120,8 @@ public abstract class GameSearch {
             while (enum2.hasMoreElements()) {
                 System.out.println(" next element: " + enum2.nextElement());
             }
-            startingPosition = (Position)v.elementAt(1);        
+            if((Position)v.elementAt(1) != null)
+                startingPosition = (Position)v.elementAt(1);        
         }
     }
 }
