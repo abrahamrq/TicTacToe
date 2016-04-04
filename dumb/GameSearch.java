@@ -111,16 +111,32 @@ public abstract class GameSearch {
                 System.out.println("Drawn game");
                 break;
             }
-            System.out.println("Your move:");
-            Move move = createMove();
+
+            Move move;
+            TicTacToeMove m;
+            TicTacToePosition p;
+            do{
+                System.out.println("Your move:");
+                move = createMove();
+                m = (TicTacToeMove)move;
+                p = (TicTacToePosition)startingPosition;
+                if (p.board[m.moveIndex] != 0)
+                    System.out.println("That spot is already taken, try again!");
+            }while(p.board[m.moveIndex] != 0);
+
             startingPosition = makeMove(startingPosition, HUMAN, move);
+
             printPosition(startingPosition);
+
+            
+
             Vector v = alphaBeta(0, startingPosition, PROGRAM);
             Enumeration enum2 = v.elements();
             while (enum2.hasMoreElements()) {
                 System.out.println(" next element: " + enum2.nextElement());
             }
-            startingPosition = (Position)v.elementAt(1);        
+            if((Position)v.elementAt(1) != null)
+                startingPosition = (Position)v.elementAt(1);        
         }
     }
 }
