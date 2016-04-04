@@ -125,10 +125,7 @@ public abstract class GameSearch {
             }while(p.board[m.moveIndex] != 0);
 
             startingPosition = makeMove(startingPosition, HUMAN, move);
-
             printPosition(startingPosition);
-
-            
 
             Vector v = alphaBeta(0, startingPosition, PROGRAM);
             Enumeration enum2 = v.elements();

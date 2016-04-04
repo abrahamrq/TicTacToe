@@ -41,6 +41,23 @@ public class TicTacToe extends GameSearch {
         return false;
     }
 
+    public float wonPosition2(Position p, boolean player) {
+        if (GameSearch.DEBUG) System.out.println("wonPosition("+p+","+player+")");
+        float ret = 0.0f;
+        TicTacToePosition pos = (TicTacToePosition)p;
+        if (winCheck(0,1,2, player, pos)) ret += 1.1f;
+        if (winCheck(3,4,5, player, pos)) ret += 1.1f;
+        if (winCheck(6,7,8, player, pos)) ret += 1.1f;
+        if (winCheck(0,4,8, player, pos)) ret += 1.1f;
+        if (winCheck(2,4,6, player, pos)) ret += 1.1f;
+        if (winCheck(0,3,6, player, pos)) ret += 1.1f;
+        if (winCheck(1,4,7, player, pos)) ret += 1.1f;
+        if (winCheck(2,5,8, player, pos)) ret += 1.1f;
+        
+        if (GameSearch.DEBUG) System.out.println("     ret="+ret);
+        return ret;
+    }
+
     public float positionEvaluation(Position p, boolean player) {
         int count = 0;
         TicTacToePosition pos = (TicTacToePosition)p;
@@ -60,10 +77,13 @@ public class TicTacToe extends GameSearch {
         }
         float ret = (base - 1.0f);
         if (wonPosition(p, player))  {
-            return base + (1.0f / count);
+            return base + (wonPosition2(p, player));
         }
         if (wonPosition(p, !player))  {
-            return -(base + (1.0f / count));
+            return -(base + (wonPosition2(p, !player)));
+        }
+        if (drawnPosition(p)){
+            return -(base + (wonPosition2(p, !player)));
         }
         return ret;
     }
